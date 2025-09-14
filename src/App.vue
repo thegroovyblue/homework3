@@ -1,5 +1,5 @@
 <script setup>
-  import { ref } from 'vue'
+  import { ref, onMounted, watch } from 'vue'
   const name = ref('')
   const input_content = ref('')
   const myArray = ref([])
@@ -21,6 +21,21 @@ const addTodo = () => {
   input_category.value = null
 } 
 
+const remove = (x) => {
+  myArray.value = myArray.value.filter((Element) => Element !== x)
+}
+
+onMounted( () => {
+  name.value = myArray.value.filter(Element => Element !== x)
+})
+
+watch(name, (newVal) => {
+  localStorage.setItem('name', newVal)
+})
+
+watch(myArray, (newVal) => {
+  localStorage.setItem('myArray', JSON.stringify(newVal))
+}, { deep: true})
 </script>
 
 <template>
